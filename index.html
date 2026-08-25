@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#f4efe9">
+  <meta name="description" content="민준과 서연의 결혼식에 초대합니다.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="민준 ♥ 서연, 결혼합니다">
+  <meta property="og:description" content="2027년 5월 22일 토요일 오후 1시">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=88">
+  <title>민준 ♥ 서연의 결혼식</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,500&family=Noto+Serif+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <main>
+      <section class="hero" aria-label="결혼식 초대 표지">
+        <img class="hero__image" src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=88" alt="야외 결혼식장의 신랑과 신부" fetchpriority="high">
+        <div class="hero__shade"></div>
+        <div class="hero__copy">
+          <p class="eyebrow">WE ARE GETTING MARRIED</p>
+          <h1><span>Minjun</span><i>&amp;</i><span>Seoyeon</span></h1>
+          <p class="hero__date">MAY 22, 2027 · SATURDAY</p>
+        </div>
+        <span class="scroll-cue" aria-hidden="true">SCROLL</span>
+      </section>
+
+      <section class="section intro reveal">
+        <p class="section-label">INVITATION</p>
+        <h2>소중한 분들을<br>저희의 시작에 초대합니다.</h2>
+        <div class="botanical" aria-hidden="true">❦</div>
+        <p class="prose">서로의 하루를 아껴주며<br>평생을 함께 걷기로 약속했습니다.<br><br>새로운 시작의 자리에 함께하시어<br>따뜻한 축복으로 빛내 주세요.</p>
+        <div class="family">
+          <p><span>김철수 · 이영희</span><small>의 장남</small><strong>민준</strong></p>
+          <p><span>박정호 · 최미경</span><small>의 장녀</small><strong>서연</strong></p>
+        </div>
+      </section>
+
+      <section class="section date-section reveal">
+        <p class="section-label">THE WEDDING DAY</p>
+        <h2>2027. 05. 22</h2>
+        <p class="muted">토요일 오후 1시</p>
+        <div class="calendar" aria-label="2027년 5월 달력">
+          <div class="calendar__week"><span>SUN</span><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span></div>
+          <div class="calendar__days" id="calendarDays"></div>
+        </div>
+        <p class="countdown" id="countdown" aria-live="polite"></p>
+        <button class="text-button" id="calendarButton" type="button">캘린더에 일정 저장</button>
+      </section>
+
+      <section class="section gallery-section reveal">
+        <p class="section-label">GALLERY</p>
+        <h2>우리의 빛나는 순간</h2>
+        <div class="gallery" id="gallery">
+          <button class="gallery__item gallery__item--wide" data-index="0" aria-label="첫 번째 사진 크게 보기"><img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=900&q=85" alt="서로 손을 잡은 신랑 신부" loading="lazy"></button>
+          <button class="gallery__item" data-index="1" aria-label="두 번째 사진 크게 보기"><img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=700&q=85" alt="결혼식 중 미소 짓는 커플" loading="lazy"></button>
+          <button class="gallery__item" data-index="2" aria-label="세 번째 사진 크게 보기"><img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=700&q=85" alt="들판에 선 커플" loading="lazy"></button>
+          <button class="gallery__item gallery__item--tall" data-index="3" aria-label="네 번째 사진 크게 보기"><img src="https://images.unsplash.com/photo-1519741347686-c1e0a0df51b9?auto=format&fit=crop&w=700&q=85" alt="웨딩드레스를 입은 신부" loading="lazy"></button>
+          <button class="gallery__item" data-index="4" aria-label="다섯 번째 사진 크게 보기"><img src="https://images.unsplash.com/photo-1544078751-58fee2d8a03b?auto=format&fit=crop&w=700&q=85" alt="꽃밭에서 포옹하는 커플" loading="lazy"></button>
+          <button class="gallery__item" data-index="5" aria-label="여섯 번째 사진 크게 보기"><img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=700&q=85" alt="결혼 반지를 낀 두 사람의 손" loading="lazy"></button>
+        </div>
+      </section>
+
+      <section class="section location reveal">
+        <p class="section-label">LOCATION</p>
+        <h2>오시는 길</h2>
+        <div class="venue-card">
+          <p class="venue-card__name">그랜드 웨딩홀 3층 그랜드볼룸</p>
+          <p>서울특별시 강남구 테헤란로 123</p>
+          <p class="muted">02-1234-5678</p>
+        </div>
+        <div class="map-placeholder" aria-label="약도">
+          <div class="road road--horizontal"></div><div class="road road--vertical"></div>
+          <span class="station">강남역</span><span class="pin">♥<small>WEDDING</small></span>
+        </div>
+        <div class="map-links">
+          <a href="https://map.naver.com/p/search/서울특별시%20강남구%20테헤란로%20123" target="_blank" rel="noopener">네이버지도</a>
+          <a href="https://map.kakao.com/link/search/서울특별시 강남구 테헤란로 123" target="_blank" rel="noopener">카카오맵</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=서울특별시+강남구+테헤란로+123" target="_blank" rel="noopener">구글지도</a>
+        </div>
+        <div class="transport">
+          <article><h3>지하철</h3><p>2호선 강남역 3번 출구에서 도보 5분</p></article>
+          <article><h3>버스</h3><p>강남역 정류장 하차 후 도보 3분</p></article>
+          <article><h3>주차</h3><p>건물 지하 주차장 2시간 무료 이용</p></article>
+        </div>
+      </section>
+
+      <section class="section contact reveal">
+        <p class="section-label">CONTACT</p>
+        <h2>마음 전하실 곳</h2>
+        <p class="prose prose--small">참석이 어려우신 분들을 위해<br>마음 전하실 곳을 안내드립니다.</p>
+        <div class="accordions">
+          <details><summary>신랑측 계좌번호 <span>＋</span></summary><div class="account"><p>신랑 김민준 <small>국민은행</small></p><button class="copy-button" data-copy="123456-78-901234">123456-78-901234 <b>복사</b></button><p>아버지 김철수 <small>신한은행</small></p><button class="copy-button" data-copy="110-123-456789">110-123-456789 <b>복사</b></button></div></details>
+          <details><summary>신부측 계좌번호 <span>＋</span></summary><div class="account"><p>신부 박서연 <small>우리은행</small></p><button class="copy-button" data-copy="1002-123-456789">1002-123-456789 <b>복사</b></button><p>어머니 최미경 <small>하나은행</small></p><button class="copy-button" data-copy="123-456789-01234">123-456789-01234 <b>복사</b></button></div></details>
+        </div>
+        <div class="call-links"><a href="tel:01012345678">신랑에게 연락</a><a href="tel:01098765432">신부에게 연락</a></div>
+      </section>
+
+      <section class="closing reveal">
+        <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1100&q=85" alt="함께 걷는 신랑과 신부" loading="lazy">
+        <div><p>함께여서 더 좋은 날,</p><h2>저희 두 사람<br>행복하게 잘 살겠습니다.</h2></div>
+      </section>
+
+      <footer>
+        <p>MINJUN <i>&amp;</i> SEOYEON</p>
+        <button id="shareButton" type="button">청첩장 공유하기</button>
+        <small>© 2027 Minjun &amp; Seoyeon</small>
+      </footer>
+    </main>
+  </div>
+
+  <dialog class="lightbox" id="lightbox">
+    <button class="lightbox__close" aria-label="사진 닫기">×</button>
+    <button class="lightbox__nav lightbox__nav--prev" aria-label="이전 사진">‹</button>
+    <img id="lightboxImage" alt="확대된 웨딩 사진">
+    <button class="lightbox__nav lightbox__nav--next" aria-label="다음 사진">›</button>
+    <p id="lightboxCount"></p>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
