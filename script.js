@@ -1,8 +1,8 @@
 const CONFIG = {
   weddingDate: new Date('2027-05-22T13:00:00+09:00'),
-  title: '민준 ♥ 서연 결혼식',
-  venue: '그랜드 웨딩홀 3층 그랜드볼룸',
-  address: '서울특별시 강남구 테헤란로 123'
+  title: '신랑 ♥ 신부 결혼식',
+  venue: '예식장 이름을 입력해 주세요',
+  address: '예식장 주소를 입력해 주세요'
 };
 
 const toast = document.querySelector('#toast');
@@ -37,13 +37,14 @@ function renderCalendar() {
 function updateCountdown() {
   const days = Math.ceil((CONFIG.weddingDate - new Date()) / 86400000);
   const output = document.querySelector('#countdown');
-  if (days > 0) output.innerHTML = `민준 ♥ 서연의 결혼식이 <strong>${days}일</strong> 남았습니다.`;
+  if (days > 0) output.innerHTML = `신랑 ♥ 신부의 결혼식이 <strong>${days}일</strong> 남았습니다.`;
   else if (days === 0) output.innerHTML = '오늘, 저희 두 사람이 결혼합니다.';
   else output.innerHTML = '함께 축복해 주셔서 감사합니다.';
 }
 
 document.querySelectorAll('.copy-button').forEach((button) => {
   button.addEventListener('click', async () => {
+    if (!button.dataset.copy) { showToast('계좌번호를 먼저 입력해 주세요.'); return; }
     try {
       await navigator.clipboard.writeText(button.dataset.copy);
       showToast('계좌번호를 복사했습니다.');
