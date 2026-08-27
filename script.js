@@ -1,7 +1,7 @@
 const CONFIG = {
-  weddingDate: new Date('2027-05-22T13:00:00+09:00'),
+  weddingDate: new Date('2027-01-23T12:40:00+09:00'),
   title: '박민구 ♥ 손지현 결혼식',
-  venue: 'DMC 타워웨딩',
+  venue: 'DMC 타워웨딩 2층 그랜드볼룸홀',
   address: '서울특별시 마포구 성암로 189 중소기업DMC타워 2층'
 };
 
@@ -77,7 +77,7 @@ document.querySelector('.lightbox__nav--next').addEventListener('click', () => s
 lightbox.addEventListener('click', (event) => { if (event.target === lightbox) lightbox.close(); });
 
 document.querySelector('#shareButton').addEventListener('click', async () => {
-  const shareData = { title: CONFIG.title, text: `${CONFIG.title}\n2027년 5월 22일 토요일 오후 1시`, url: location.href };
+  const shareData = { title: CONFIG.title, text: `${CONFIG.title}\n2027년 1월 23일 토요일 오후 12시 40분`, url: location.href };
   try {
     if (navigator.share) await navigator.share(shareData);
     else { await navigator.clipboard.writeText(location.href); showToast('청첩장 주소를 복사했습니다.'); }
