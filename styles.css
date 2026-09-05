@@ -357,54 +357,17 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .venue-card p { margin: 7px 0; font-size: 11px; line-height: 1.9; }
 .venue-card__name { font-size: 14px !important; font-weight: 500; }
 
-.map-placeholder {
-  position: relative;
-  height: 218px;
+.venue-map {
   display: block;
   overflow: hidden;
   border: 1px solid #d9d9d4;
-  background-color: #e7e7e2;
-  background-image: linear-gradient(30deg, transparent 48%, rgba(255, 255, 255, .7) 49%, rgba(255, 255, 255, .7) 51%, transparent 52%);
-  color: inherit;
-  text-decoration: none;
+  background: #fff;
 }
 
-.road { position: absolute; border: 1px solid #d4d4cf; background: #f8f8f5; }
-.road--horizontal { top: 53%; left: -10%; width: 120%; height: 31px; transform: rotate(-6deg); }
-.road--vertical { top: -10%; left: 30%; width: 26px; height: 120%; transform: rotate(10deg); }
-
-.station {
-  position: absolute;
-  bottom: 20px;
-  left: 16px;
-  padding: 5px 10px;
-  border-radius: 13px;
-  background: #777b72;
-  color: #fff;
-  font: 500 8px var(--sans);
-}
-
-.pin {
-  position: absolute;
-  top: 30%;
-  right: 25%;
-  width: 40px;
-  height: 40px;
-  display: grid;
-  place-items: center;
-  border-radius: 50% 50% 50% 0;
-  background: var(--ink);
-  color: #fff;
-  box-shadow: 0 5px 12px rgba(0, 0, 0, .16);
-  transform: rotate(-45deg);
-}
-
-.pin small {
-  position: absolute;
-  top: 48px;
-  color: var(--ink);
-  font: 600 7px var(--sans);
-  transform: rotate(45deg);
+.venue-map img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .map-links {
