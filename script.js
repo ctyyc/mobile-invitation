@@ -2,7 +2,16 @@ const CONFIG = {
   weddingDate: new Date('2027-01-23T12:40:00+09:00'),
   title: '박민구 ♥ 손지현 결혼식',
   venue: 'DMC 타워웨딩 2층 그랜드볼룸홀',
-  address: '서울특별시 마포구 성암로 189 중소기업DMC타워 2층'
+  address: '서울특별시 마포구 성암로 189 중소기업DMC타워 2층',
+  // 모든 웨딩 사진 목록
+  allPhotos: [
+    'image/001.jpg', 'image/002.jpg', 'image/005.jpg', 'image/007.jpg', 
+    'image/009.jpg', 'image/010.jpg', 'image/011.jpg', 'image/012.jpg', 
+    'image/013.jpg', 'image/014.jpg', 'image/015.jpg', 'image/016.jpg', 
+    'image/018.jpg', 'image/019.jpg', 'image/020.jpg', 'image/021.jpg', 
+    'image/022.jpg', 'image/025.jpg', 'image/026.jpg', 'image/027.jpg', 
+    'image/029.jpg'
+  ]
 };
 
 const toast = document.querySelector('#toast');
@@ -54,23 +63,33 @@ document.querySelectorAll('.copy-button').forEach((button) => {
   });
 });
 
+// 갤러리: 썸네일은 6장만 표시
 const galleryImages = [...document.querySelectorAll('.gallery__item img')];
+// 라이트박스: 모든 사진을 보여줌
 const lightbox = document.querySelector('#lightbox');
 const lightboxImage = document.querySelector('#lightboxImage');
 const lightboxCount = document.querySelector('#lightboxCount');
 let currentImage = 0;
+
 function showImage(index) {
-  currentImage = (index + galleryImages.length) % galleryImages.length;
-  lightboxImage.src = galleryImages[currentImage].src.replace(/w=\d+/, 'w=1400');
-  lightboxImage.alt = galleryImages[currentImage].alt;
-  lightboxCount.textContent = `${currentImage + 1} / ${galleryImages.length}`;
+  currentImage = (index + CONFIG.allPhotos.length) % CONFIG.allPhotos.length;
+  lightboxImage.src = CONFIG.allPhotos[currentImage];
+  lightboxImage.alt = `웨딩 사진 ${currentImage + 1}`;
+  lightboxCount.textContent = `${currentImage + 1} / ${CONFIG.allPhotos.length}`;
 }
+
 document.querySelector('#gallery').addEventListener('click', (event) => {
   const item = event.target.closest('.gallery__item');
   if (!item) return;
-  showImage(Number(item.dataset.index));
+  // 클릭한 썸네일의 인덱스로 시작
+  const galleryIndex = Number(item.dataset.index);
+  // 전체 사진에서 시작할 인덱스 찾기 (썸네일 이미지 src를 기반으로)
+  const clickedSrc = item.querySelector('img').src;
+  const allPhotosIndex = CONFIG.allPhotos.findIndex(photo => clickedSrc.includes(photo));
+  showImage(allPhotosIndex >= 0 ? allPhotosIndex : galleryIndex);
   lightbox.showModal();
 });
+
 document.querySelector('.lightbox__close').addEventListener('click', () => lightbox.close());
 document.querySelector('.lightbox__nav--prev').addEventListener('click', () => showImage(currentImage - 1));
 document.querySelector('.lightbox__nav--next').addEventListener('click', () => showImage(currentImage + 1));
@@ -88,7 +107,7 @@ document.querySelector('#calendarButton').addEventListener('click', () => {
   const pad = (value) => String(value).padStart(2, '0');
   const toIcs = (date) => `${date.getUTCFullYear()}${pad(date.getUTCMonth()+1)}${pad(date.getUTCDate())}T${pad(date.getUTCHours())}${pad(date.getUTCMinutes())}00Z`;
   const end = new Date(CONFIG.weddingDate.getTime() + 2 * 60 * 60 * 1000);
-  const ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Wedding Invitation//KO','BEGIN:VEVENT',`DTSTART:${toIcs(CONFIG.weddingDate)}`,`DTEND:${toIcs(end)}`,`SUMMARY:${CONFIG.title}`,`LOCATION:${CONFIG.venue}, ${CONFIG.address}`,'END:VEVENT','END:VCALENDAR'].join('\r\n');
+  const ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Wedding Invitation//KO','BEGIN:VEVENT',`DTSTART:${toIcs(CONFIG.weddingDate)}`,`DTEND:${toIcs(end)}`,`SUMMARY:${CONFIG.title}`,`LOCATION:${CONFIG.address}`,`DESCRIPTION:${CONFIG.title}`,`END:VEVENT`,'END:VCALENDAR'].join('\r\n');
   const link = document.createElement('a');
   link.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar;charset=utf-8' }));
   link.download = 'wedding.ics';
