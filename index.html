@@ -56,12 +56,12 @@
         <p class="section-label">GALLERY</p>
         <h2>우리의 빛나는 순간</h2>
         <div class="gallery" id="gallery">
-          <button class="gallery__item gallery__item--wide" data-index="0" aria-label="첫 번째 사진 크게 보기" data-full="image/010.jpg"><img src="image/preview/010.jpg" alt="신랑신부 투샷" loading="lazy"></button>
-          <button class="gallery__item" data-index="1" aria-label="두 번째 사진 크게 보기" data-full="image/007.jpg"><img src="image/preview/007.jpg" alt="웨딩 순간" loading="lazy"></button>
-          <button class="gallery__item" data-index="2" aria-label="세 번째 사진 크게 보기" data-full="image/009.jpg"><img src="image/preview/009.jpg" alt="포토 모먼트" loading="lazy"></button>
-          <button class="gallery__item gallery__item--tall" data-index="3" aria-label="네 번째 사진 크게 보기" data-full="image/013.jpg"><img src="image/preview/013.jpg" alt="감성적인 사진" loading="lazy"></button>
-          <button class="gallery__item" data-index="4" aria-label="다섯 번째 사진 크게 보기" data-full="image/011.jpg"><img src="image/preview/011.jpg" alt="행복한 순간" loading="lazy"></button>
-          <button class="gallery__item" data-index="5" aria-label="여섯 번째 사진 크게 보기" data-full="image/012.jpg"><img src="image/preview/012.jpg" alt="결혼식 스냅" loading="lazy"></button>
+          <div class="gallery__item gallery__item--wide"><img src="image/preview/010.jpg" alt="신랑신부 투샷" loading="lazy"></div>
+          <div class="gallery__item"><img src="image/preview/007.jpg" alt="웨딩 순간" loading="lazy"></div>
+          <div class="gallery__item"><img src="image/preview/009.jpg" alt="포토 모먼트" loading="lazy"></div>
+          <div class="gallery__item gallery__item--tall"><img src="image/preview/013.jpg" alt="감성적인 사진" loading="lazy"></div>
+          <div class="gallery__item"><img src="image/preview/011.jpg" alt="행복한 순간" loading="lazy"></div>
+          <div class="gallery__item"><img src="image/preview/012.jpg" alt="결혼식 스냅" loading="lazy"></div>
         </div>
       </section>
 
@@ -112,13 +112,6 @@
     </main>
   </div>
 
-  <dialog class="lightbox" id="lightbox">
-    <button class="lightbox__close" aria-label="사진 닫기">×</button>
-    <button class="lightbox__nav lightbox__nav--prev" aria-label="이전 사진">‹</button>
-    <img id="lightboxImage" alt="확대된 웨딩 사진">
-    <button class="lightbox__nav lightbox__nav--next" aria-label="다음 사진">›</button>
-    <p id="lightboxCount"></p>
-  </dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="script.js"></script>
 </body>
