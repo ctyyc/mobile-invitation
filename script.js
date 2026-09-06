@@ -2,7 +2,16 @@ const CONFIG = {
   weddingDate: new Date('2027-01-23T12:40:00+09:00'),
   title: '박민구 ♥ 손지현 결혼식',
   venue: 'DMC 타워웨딩 2층 그랜드볼룸홀',
-  address: '서울특별시 마포구 성암로 189 중소기업DMC타워 2층'
+  address: '서울특별시 마포구 성암로 189 중소기업DMC타워 2층',
+  // 모든 웨딩 사진 목록
+  allPhotos: [
+    'image/001.jpg', 'image/002.jpg', 'image/005.jpg', 'image/007.jpg', 
+    'image/009.jpg', 'image/010.jpg', 'image/011.jpg', 'image/012.jpg', 
+    'image/013.jpg', 'image/014.jpg', 'image/015.jpg', 'image/016.jpg', 
+    'image/018.jpg', 'image/019.jpg', 'image/020.jpg', 'image/021.jpg', 
+    'image/022.jpg', 'image/025.jpg', 'image/026.jpg', 'image/027.jpg', 
+    'image/029.jpg'
+  ]
 };
 
 const toast = document.querySelector('#toast');
@@ -53,6 +62,38 @@ document.querySelectorAll('.copy-button').forEach((button) => {
     }
   });
 });
+
+// 갤러리: 썸네일은 6장만 표시
+const galleryImages = [...document.querySelectorAll('.gallery__item img')];
+// 라이트박스: 모든 사진을 보여줌
+const lightbox = document.querySelector('#lightbox');
+const lightboxImage = document.querySelector('#lightboxImage');
+const lightboxCount = document.querySelector('#lightboxCount');
+let currentImage = 0;
+
+function showImage(index) {
+  currentImage = (index + CONFIG.allPhotos.length) % CONFIG.allPhotos.length;
+  lightboxImage.src = CONFIG.allPhotos[currentImage];
+  lightboxImage.alt = `웨딩 사진 ${currentImage + 1}`;
+  lightboxCount.textContent = `${currentImage + 1} / ${CONFIG.allPhotos.length}`;
+}
+
+document.querySelector('#gallery').addEventListener('click', (event) => {
+  const item = event.target.closest('.gallery__item');
+  if (!item) return;
+  // 클릭한 썸네일의 인덱스로 시작
+  const galleryIndex = Number(item.dataset.index);
+  // 썸네일과 분리된 확대용 이미지 경로로 시작 위치 찾기
+  const clickedSrc = item.dataset.full || item.querySelector('img').getAttribute('src');
+  const allPhotosIndex = CONFIG.allPhotos.indexOf(clickedSrc);
+  showImage(allPhotosIndex >= 0 ? allPhotosIndex : galleryIndex);
+  lightbox.showModal();
+});
+
+document.querySelector('.lightbox__close').addEventListener('click', () => lightbox.close());
+document.querySelector('.lightbox__nav--prev').addEventListener('click', () => showImage(currentImage - 1));
+document.querySelector('.lightbox__nav--next').addEventListener('click', () => showImage(currentImage + 1));
+lightbox.addEventListener('click', (event) => { if (event.target === lightbox) lightbox.close(); });
 
 document.querySelector('#shareButton').addEventListener('click', async () => {
   const shareData = { title: CONFIG.title, text: `${CONFIG.title}\n2027년 1월 23일 토요일 오후 12시 40분`, url: location.href };
