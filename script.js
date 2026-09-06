@@ -83,9 +83,9 @@ document.querySelector('#gallery').addEventListener('click', (event) => {
   if (!item) return;
   // 클릭한 썸네일의 인덱스로 시작
   const galleryIndex = Number(item.dataset.index);
-  // 전체 사진에서 시작할 인덱스 찾기 (썸네일 이미지 src를 기반으로)
-  const clickedSrc = item.querySelector('img').src;
-  const allPhotosIndex = CONFIG.allPhotos.findIndex(photo => clickedSrc.includes(photo));
+  // 썸네일과 분리된 확대용 이미지 경로로 시작 위치 찾기
+  const clickedSrc = item.dataset.full || item.querySelector('img').getAttribute('src');
+  const allPhotosIndex = CONFIG.allPhotos.indexOf(clickedSrc);
   showImage(allPhotosIndex >= 0 ? allPhotosIndex : galleryIndex);
   lightbox.showModal();
 });
