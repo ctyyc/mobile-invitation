@@ -63,7 +63,7 @@ document.querySelectorAll('.copy-button').forEach((button) => {
   });
 });
 
-// 갤러리: 썸네일은 6장만 표시
+// 갤러리: 정사각형 썸네일 9장을 표시
 const galleryImages = [...document.querySelectorAll('.gallery__item img')];
 // 라이트박스: 모든 사진을 보여줌
 const lightbox = document.querySelector('#lightbox');
