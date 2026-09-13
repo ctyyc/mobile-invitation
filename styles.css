@@ -232,6 +232,12 @@ main { overflow: clip; }
 .accordions details[open] summary span { transform: rotate(45deg); }
 .account { padding: 0 0 22px; }
 .account p { margin: 0 0 13px; font-size: .9375rem; }
+/* Keep bank account numbers as plain text, including browser-inserted links. */
+.account-number, .account-number a {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+.account-number a { pointer-events: none; cursor: text; }
 .account small { margin-left: 9px; color: var(--muted); font: 400 .875rem/1.5 var(--sans); }
 .copy-button { width: 100%; min-height: 48px; padding: 12px; border: 1px solid var(--line); border-radius: 3px; color: var(--ink); background: var(--mist); font: 500 .875rem/1.6 var(--sans); }
 .call-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
