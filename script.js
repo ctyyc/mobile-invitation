@@ -63,6 +63,54 @@ document.querySelectorAll('.copy-button').forEach((button) => {
   });
 });
 
+// Naver Maps app links: https://guide.ncloud-docs.com/docs/maps-url-scheme
+// Keep the HTTPS href for desktop, modified clicks and browsers without JavaScript.
+let cancelNaverMapFallback = () => {};
+document.querySelectorAll('[data-naver-map]').forEach((link) => {
+  link.addEventListener('click', (event) => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent)
+      || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    if (!isAndroid && !isIOS) return;
+
+    event.preventDefault();
+    cancelNaverMapFallback();
+    const path = 'search?query=' + encodeURIComponent('DMC타워웨딩')
+      + '&appname=' + encodeURIComponent(location.origin + location.pathname);
+    const webUrl = link.href;
+    if (isAndroid) {
+      location.href = 'intent://' + path
+        + '#Intent;scheme=nmap;action=android.intent.action.VIEW;'
+        + 'category=android.intent.category.BROWSABLE;package=com.nhn.android.nmap;'
+        + 'S.browser_fallback_url=' + encodeURIComponent(webUrl) + ';end';
+      return;
+    }
+
+    // Cancel on app handoff so returning to the invitation never triggers a redirect.
+    const startedAt = Date.now();
+    let timer;
+    const cleanup = () => {
+      clearTimeout(timer);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+      window.removeEventListener('pagehide', cleanup);
+      cancelNaverMapFallback = () => {};
+    };
+    const onVisibilityChange = () => {
+      if (document.hidden) cleanup();
+    };
+    cancelNaverMapFallback = cleanup;
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    window.addEventListener('pagehide', cleanup);
+    timer = setTimeout(() => {
+      const shouldFallback = !document.hidden && Date.now() - startedAt < 2600;
+      cleanup();
+      if (shouldFallback) location.href = webUrl;
+    }, 1600);
+    location.href = 'nmap://' + path;
+  });
+});
+
 // 갤러리: 정사각형 썸네일 9장을 표시
 const galleryImages = [...document.querySelectorAll('.gallery__item img')];
 // 라이트박스: 모든 사진을 보여줌
