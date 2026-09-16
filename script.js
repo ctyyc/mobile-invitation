@@ -63,10 +63,10 @@ document.querySelectorAll('.copy-button').forEach((button) => {
   });
 });
 
-// Naver Maps app links: https://guide.ncloud-docs.com/docs/maps-url-scheme
+// Mobile map app links (Naver Maps and TMAP).
 // Keep the HTTPS href for desktop, modified clicks and browsers without JavaScript.
-let cancelNaverMapFallback = () => {};
-document.querySelectorAll('[data-naver-map]').forEach((link) => {
+let cancelMapFallback = () => {};
+document.querySelectorAll('[data-naver-map], [data-tmap]').forEach((link) => {
   link.addEventListener('click', (event) => {
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     const isAndroid = /Android/i.test(navigator.userAgent);
@@ -75,14 +75,23 @@ document.querySelectorAll('[data-naver-map]').forEach((link) => {
     if (!isAndroid && !isIOS) return;
 
     event.preventDefault();
-    cancelNaverMapFallback();
-    const path = 'search?query=' + encodeURIComponent('DMC타워웨딩')
-      + '&appname=' + encodeURIComponent(location.origin + location.pathname);
-    const webUrl = link.href;
+    cancelMapFallback();
+    const isTmap = link.hasAttribute('data-tmap');
+    const scheme = isTmap ? 'tmap' : 'nmap';
+    const packageName = isTmap ? 'com.skt.tmap.ku' : 'com.nhn.android.nmap';
+    const path = isTmap
+      ? 'search?name=' + encodeURIComponent('DMC타워웨딩')
+      : 'search?query=' + encodeURIComponent('DMC타워웨딩')
+        + '&appname=' + encodeURIComponent(location.origin + location.pathname);
+    const webUrl = isTmap
+      ? (isAndroid
+        ? 'https://play.google.com/store/apps/details?id=com.skt.tmap.ku'
+        : 'https://apps.apple.com/kr/app/id431589174')
+      : link.href;
     if (isAndroid) {
       location.href = 'intent://' + path
-        + '#Intent;scheme=nmap;action=android.intent.action.VIEW;'
-        + 'category=android.intent.category.BROWSABLE;package=com.nhn.android.nmap;'
+        + '#Intent;scheme=' + scheme + ';action=android.intent.action.VIEW;'
+        + 'category=android.intent.category.BROWSABLE;package=' + packageName + ';'
         + 'S.browser_fallback_url=' + encodeURIComponent(webUrl) + ';end';
       return;
     }
@@ -94,12 +103,12 @@ document.querySelectorAll('[data-naver-map]').forEach((link) => {
       clearTimeout(timer);
       document.removeEventListener('visibilitychange', onVisibilityChange);
       window.removeEventListener('pagehide', cleanup);
-      cancelNaverMapFallback = () => {};
+      cancelMapFallback = () => {};
     };
     const onVisibilityChange = () => {
       if (document.hidden) cleanup();
     };
-    cancelNaverMapFallback = cleanup;
+    cancelMapFallback = cleanup;
     document.addEventListener('visibilitychange', onVisibilityChange);
     window.addEventListener('pagehide', cleanup);
     timer = setTimeout(() => {
@@ -107,7 +116,7 @@ document.querySelectorAll('[data-naver-map]').forEach((link) => {
       cleanup();
       if (shouldFallback) location.href = webUrl;
     }, 1600);
-    location.href = 'nmap://' + path;
+    location.href = scheme + '://' + path;
   });
 });
 
