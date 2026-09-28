@@ -5,12 +5,11 @@ const CONFIG = {
   address: '서울특별시 마포구 성암로 189 중소기업DMC타워 2층',
   // 모든 웨딩 사진 목록
   allPhotos: [
-    'image/001.jpg', 'image/002.jpg', 'image/005.jpg', 'image/007.jpg', 
-    'image/009.jpg', 'image/010.jpg', 'image/011.jpg', 'image/012.jpg', 
-    'image/013.jpg', 'image/014.jpg', 'image/015.jpg', 'image/016.jpg', 
-    'image/018.jpg', 'image/019.jpg', 'image/020.jpg', 'image/021.jpg', 
-    'image/022.jpg', 'image/025.jpg', 'image/026.jpg', 'image/027.jpg', 
-    'image/029.jpg'
+    'image/001.jpeg', 'image/002.jpeg', 'image/003.jpeg', 'image/004.jpeg',
+    'image/005.jpeg', 'image/006.jpeg', 'image/007.jpeg', 'image/008.jpeg',
+    'image/009.jpeg', 'image/010.jpeg', 'image/011.jpeg', 'image/012.jpeg',
+    'image/013.jpeg', 'image/014.jpeg', 'image/015.jpeg', 'image/016.jpeg',
+    'image/017.jpeg', 'image/018.jpeg'
   ]
 };
 
