@@ -43,7 +43,9 @@ function renderCalendar() {
 }
 
 function updateCountdown() {
-  const days = Math.ceil((CONFIG.weddingDate - new Date()) / 86400000);
+  // 한국 표준시(KST) 달력 날짜 기준으로 비교해 예식 당일에는 시각과 무관하게 '오늘'로 표시한다.
+  const kstDay = (date) => Math.floor((date.getTime() + 9 * 3600000) / 86400000);
+  const days = kstDay(CONFIG.weddingDate) - kstDay(new Date());
   const output = document.querySelector('#countdown');
   if (days > 0) output.innerHTML = `박민구 ♥ 손지현의 결혼식이 <strong>${days}일</strong> 남았습니다.`;
   else if (days === 0) output.innerHTML = '오늘, 저희 두 사람이 결혼합니다.';
@@ -163,12 +165,28 @@ document.querySelector('#calendarButton').addEventListener('click', () => {
   const pad = (value) => String(value).padStart(2, '0');
   const toIcs = (date) => `${date.getUTCFullYear()}${pad(date.getUTCMonth()+1)}${pad(date.getUTCDate())}T${pad(date.getUTCHours())}${pad(date.getUTCMinutes())}00Z`;
   const end = new Date(CONFIG.weddingDate.getTime() + 2 * 60 * 60 * 1000);
-  const ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Wedding Invitation//KO','BEGIN:VEVENT',`DTSTART:${toIcs(CONFIG.weddingDate)}`,`DTEND:${toIcs(end)}`,`SUMMARY:${CONFIG.title}`,`LOCATION:${CONFIG.address}`,`DESCRIPTION:${CONFIG.title}`,`END:VEVENT`,'END:VCALENDAR'].join('\r\n');
+  // RFC 5545 필수 항목(UID, DTSTAMP)을 포함하고, 텍스트 값의 특수문자를 이스케이프한다.
+  const esc = (text) => String(text).replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
+  const ics = [
+    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Wedding Invitation//KO', 'CALSCALE:GREGORIAN',
+    'BEGIN:VEVENT',
+    `UID:wedding-${toIcs(CONFIG.weddingDate)}@mobile-invitation`,
+    `DTSTAMP:${toIcs(new Date())}`,
+    `DTSTART:${toIcs(CONFIG.weddingDate)}`,
+    `DTEND:${toIcs(end)}`,
+    `SUMMARY:${esc(CONFIG.title)}`,
+    `LOCATION:${esc(`${CONFIG.venue}, ${CONFIG.address}`)}`,
+    `DESCRIPTION:${esc(CONFIG.title)}`,
+    'END:VEVENT', 'END:VCALENDAR'
+  ].join('\r\n') + '\r\n';
   const link = document.createElement('a');
   link.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar;charset=utf-8' }));
   link.download = 'wedding.ics';
+  document.body.append(link);
   link.click();
-  URL.revokeObjectURL(link.href);
+  link.remove();
+  // 클릭 직후 해제하면 일부 브라우저에서 다운로드가 실패하므로 지연 후 해제한다.
+  setTimeout(() => URL.revokeObjectURL(link.href), 10000);
 });
 
 const observer = new IntersectionObserver((entries) => {
