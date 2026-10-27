@@ -3,13 +3,15 @@ const CONFIG = {
   title: '박민구 ♥ 손지현 결혼식',
   venue: 'DMC 타워웨딩 2층 그랜드볼룸홀',
   address: '서울특별시 마포구 성암로 189 중소기업DMC타워 2층',
-  // 모든 웨딩 사진 목록
+  // 모든 웨딩 사진 목록 (확대 보기 순서)
+  // 앞의 9장은 갤러리 썸네일 순서(index.html의 data-full)와 동일하게 두어 첫 썸네일이 1페이지로 열린다.
   allPhotos: [
-    'image/001.jpeg', 'image/002.jpeg', 'image/003.jpeg', 'image/004.jpeg',
-    'image/005.jpeg', 'image/006.jpeg', 'image/007.jpeg', 'image/008.jpeg',
-    'image/009.jpeg', 'image/010.jpeg', 'image/011.jpeg', 'image/012.jpeg',
-    'image/013.jpeg', 'image/014.jpeg', 'image/015.jpeg', 'image/016.jpeg',
-    'image/017.jpeg', 'image/018.jpeg'
+    'image/002.jpeg', 'image/003.jpeg', 'image/004.jpeg', 'image/005.jpeg',
+    'image/006.jpeg', 'image/007.jpeg', 'image/008.jpeg', 'image/009.jpeg',
+    'image/010.jpeg',
+    'image/001.jpeg', 'image/011.jpeg', 'image/012.jpeg', 'image/013.jpeg',
+    'image/014.jpeg', 'image/015.jpeg', 'image/016.jpeg', 'image/017.jpeg',
+    'image/018.jpeg'
   ]
 };
 
