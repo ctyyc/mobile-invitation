@@ -190,6 +190,52 @@ document.querySelector('#calendarButton').addEventListener('click', () => {
   setTimeout(() => URL.revokeObjectURL(link.href), 10000);
 });
 
+// 배경음악: 브라우저 정책상 자동 재생이 막히므로 첫 터치/클릭 때 한 번 재생을 시도하고,
+// 우측 상단 버튼으로 켜고 끈다. 사용자가 직접 끄면 이후 자동 재생하지 않는다.
+const bgm = document.querySelector('#bgm');
+const bgmButton = document.querySelector('#bgmButton');
+bgm.volume = 0.4;
+let bgmStopped = false;      // 사용자가 직접 끈 경우
+let bgmResume = false;       // 화면이 가려져 잠시 멈춘 경우
+
+function syncBgmButton() {
+  const playing = !bgm.paused;
+  bgmButton.setAttribute('aria-pressed', String(playing));
+  bgmButton.setAttribute('aria-label', playing ? '배경음악 끄기' : '배경음악 재생');
+}
+bgm.addEventListener('play', syncBgmButton);
+bgm.addEventListener('pause', syncBgmButton);
+
+bgmButton.addEventListener('click', async () => {
+  if (bgm.paused) {
+    bgmStopped = false;
+    try { await bgm.play(); } catch { showToast('배경음악을 재생하지 못했습니다.'); }
+  } else {
+    bgmStopped = true;
+    bgm.pause();
+  }
+});
+
+function autoStartBgm(event) {
+  if (event.target.closest && event.target.closest('#bgmButton')) return;
+  removeEventListener('pointerup', autoStartBgm, true);
+  removeEventListener('keydown', autoStartBgm, true);
+  if (!bgmStopped && bgm.paused) bgm.play().catch(() => {});
+}
+addEventListener('pointerup', autoStartBgm, true);
+addEventListener('keydown', autoStartBgm, true);
+
+// 앱을 전환하거나 화면을 끄면 멈추고, 돌아오면 이어서 재생한다.
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    bgmResume = !bgm.paused;
+    bgm.pause();
+  } else if (bgmResume && !bgmStopped) {
+    bgmResume = false;
+    bgm.play().catch(() => {});
+  }
+});
+
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add('is-visible'); });
 }, { threshold: 0.12 });

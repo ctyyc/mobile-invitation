@@ -163,6 +163,13 @@
     <button class="lightbox__nav lightbox__nav--next" aria-label="다음 사진">›</button>
     <p id="lightboxCount"></p>
   </dialog>
+  <audio id="bgm" src="audio/bgm.mp3" loop preload="none"></audio>
+  <button class="bgm-button" id="bgmButton" type="button" aria-pressed="false" aria-label="배경음악 재생">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/>
+      <path class="bgm-button__off" d="M3 3l18 18"/>
+    </svg>
+  </button>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="script.js"></script>
 </body>
